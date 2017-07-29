@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block Results %}
+    {% if valid == False %}
+        <b>Invalid operation. Try again.</b>
+    {% else %}
+        <b>{{ n1 }} {{ op }} {{ n2 }} = {{ result }}</b>
+    {% endif %}
+{% endblock %}
