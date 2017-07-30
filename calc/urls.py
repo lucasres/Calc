@@ -19,5 +19,6 @@ import calculator.views
 
 urlpatterns = [
     #url(r'^admin/', admin.site.urls),
+    url(r'^$', calculator.views.index),
     url(r'^(?P<op>[a-z]+)/(?P<n1>[0-9]+)/(?P<n2>[0-9])/$', calculator.views.operation),
 ]

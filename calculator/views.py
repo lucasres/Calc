@@ -2,14 +2,25 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render
-from calculator.utils import validateData
+from django.shortcuts import redirect
+from calculator.forms import FormCalc
 
 # Create your views here.
+
+def index(request, valid = True):
+    if request.method == 'POST':
+        form = FormCalc(request.POST)
+        if form.is_valid():
+            return redirect('%s/%d/%d/', form.op.bound_data, form.n1.bound_data,
+                            form.n2.bound_data)
+        return redirect('/', valid = False)
+
+    form = FormCalc()
+    return render(request, 'base.html', vars())
 
 def operation(request, op, n1, n2):
     n1 = float(n1)
     n2 = float(n2)
-    valid = True
 
     if op == 'soma':
         op = '+'
@@ -25,6 +36,6 @@ def operation(request, op, n1, n2):
         try:
             result = n1 / n2
         except ZeroDivisionError:
-            valid = False
+            return redirect('/', valid = False)
 
     return render(request, 'operation.html', vars())

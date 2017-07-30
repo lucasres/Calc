@@ -5,10 +5,14 @@
         <title> Calculadora </title>
     </head>
     <body>
-        <p>
-            {% block Results %}
-
-            {% endblock %}
-        </p>
+        {% if valid == False %}
+            <b> Invalid entry. Try again. </b>
+        {% else %}
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <p> <button type="submit"> Calculate </button> </p>
+            </form>
+        {% endif %}
     </body>
 </html>
